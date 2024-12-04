@@ -101,10 +101,11 @@ class HandTracking {
             //console.log('Loading handpose model...');
             this.handpose = await ml5.handpose(this.video, {
                 flipHorizontal: false,
+                maxHands: 2,
                 maxContinuousChecks: 100,
                 detectionConfidence: 0.8,
-                trackingConfidence: 0.8,
-                maxHands: 2 
+                trackingConfidence: 0.8
+                
             }, () => {
                 //console.log('Handpose model loaded!');
                 this.modelReady = true;
@@ -524,51 +525,109 @@ class HandTracking {
     }
 
 
+    // displayStatus() {
+    //     this.p.fill(0, 0, 0, 80);
+    //     this.p.rect(10, this.p.height - 80, 300, 60, 10);
+    //     this.p.textSize(20);
+    //     this.p.textAlign(this.p.LEFT, this.p.TOP);
+        
+    //     let statusColor;
+    //     let gestureText = '';
+    //     switch (this.trackingStatus) {
+    //         case 'initializing':
+    //             statusColor = this.p.color(255, 255, 0);
+    //             gestureText = 'Initializing hand tracking...';
+    //             break;
+    //         case 'tracking':
+    //             statusColor = this.p.color(0, 255, 0);
+    //             gestureText = `Gesture: ${this.currentGesture || 'unknown'}`;
+    //             break;
+    //         case 'no_hand':
+    //             statusColor = this.p.color(255, 0, 0);
+    //             gestureText = 'No hand detected';
+    //             break;
+    //     }
+    
+    //     this.p.fill(statusColor);
+    //     this.p.text(gestureText, 20, this.p.height - 60);
+    
+    //     if (this.trackingStatus === 'tracking') {
+    //         this.p.textSize(16);
+    //         this.p.fill(255);
+            
+    //         // Display sound status
+    //         const soundStatus = this.soundEnabled ? 'Sound: ON' : 'Sound: OFF';
+    //         this.p.text(soundStatus, this.p.width - 120, 30);
+            
+    //         // Use handControls array for volume and pitch display
+    //         const volumeText = `Volume: ${Math.round(this.handControls[0].volume.current)}dB`;
+    //         this.p.text(volumeText, this.p.width - 150, 60);
+            
+    //         const pitchText = `Pitch: ${Math.round(this.handControls[0].pitch.current)} semitones`;
+    //         this.p.text(pitchText, this.p.width - 200, 90);
+            
+    //         const voiceStatus = this.voiceEnabled ? 'Voice: ON' : 'Voice: OFF';
+    //         this.p.text(voiceStatus, this.p.width - 120, 120);
+    //     }
+    // }
+
     displayStatus() {
+        // Background for status display
         this.p.fill(0, 0, 0, 80);
         this.p.rect(10, this.p.height - 80, 300, 60, 10);
-        this.p.textSize(20);
+    
+        // Set text properties
         this.p.textAlign(this.p.LEFT, this.p.TOP);
-        
+        this.p.textSize(18);
+    
+        // Display tracking status
         let statusColor;
-        let gestureText = '';
+        let statusText;
         switch (this.trackingStatus) {
-            case 'initializing':
-                statusColor = this.p.color(255, 255, 0);
-                gestureText = 'Initializing hand tracking...';
-                break;
-            case 'tracking':
-                statusColor = this.p.color(0, 255, 0);
-                gestureText = `Gesture: ${this.currentGesture || 'unknown'}`;
-                break;
-            case 'no_hand':
-                statusColor = this.p.color(255, 0, 0);
-                gestureText = 'No hand detected';
-                break;
+          case "initializing":
+            statusColor = this.p.color(255, 255, 0);
+            statusText = "Initializing hand tracking...";
+            break;
+          case "tracking":
+            statusColor = this.p.color(0, 255, 0);
+            statusText = "Hands detected";
+            break;
+          case "no_hand":
+            statusColor = this.p.color(255, 0, 0);
+            statusText = "No hands detected";
+            break;
         }
-    
         this.p.fill(statusColor);
-        this.p.text(gestureText, 20, this.p.height - 60);
+        this.p.text(statusText, 20, this.p.height - 90);
     
-        if (this.trackingStatus === 'tracking') {
-            this.p.textSize(16);
-            this.p.fill(255);
-            
-            // Display sound status
-            const soundStatus = this.soundEnabled ? 'Sound: ON' : 'Sound: OFF';
-            this.p.text(soundStatus, this.p.width - 120, 30);
-            
-            // Use handControls array for volume and pitch display
-            const volumeText = `Volume: ${Math.round(this.handControls[0].volume.current)}dB`;
-            this.p.text(volumeText, this.p.width - 150, 60);
-            
-            const pitchText = `Pitch: ${Math.round(this.handControls[0].pitch.current)} semitones`;
-            this.p.text(pitchText, this.p.width - 200, 90);
-            
-            const voiceStatus = this.voiceEnabled ? 'Voice: ON' : 'Voice: OFF';
-            this.p.text(voiceStatus, this.p.width - 120, 120);
+        // Display gestures for both hands
+        if (this.trackingStatus === "tracking") {
+          this.p.fill(255);
+          const gestureText = `Gestures: ${this.lastPlayedGestures
+            .map((g) => g || "unknown")
+            .join(", ")}`;
+          this.p.text(gestureText, 20, this.p.height - 60);
+    
+          // Display sound and voice status
+          const soundStatus = this.soundEnabled ? "Sound: ON" : "Sound: OFF";
+          const voiceStatus = this.voiceEnabled ? "Voice: ON" : "Voice: OFF";
+          this.p.text(`${soundStatus} | ${voiceStatus}`, 20, this.p.height - 30);
+    
+          // Display volume and pitch for both hands
+          this.p.textAlign(this.p.RIGHT, this.p.TOP);
+          for (let i = 0; i < 2; i++) {
+            const volumeText = `Hand ${i + 1} Vol: ${Math.round(
+              this.handControls[i].volume.current
+            )}dB`;
+            const pitchText = `Hand ${i + 1} Pitch: ${Math.round(
+              this.handControls[i].pitch.current
+            )}`;
+            this.p.text(volumeText, this.p.width - 20, this.p.height - 90 + i * 30);
+            this.p.text(pitchText, this.p.width - 20, this.p.height - 60 + i * 30);
+          }
         }
-    }
+      }
+    
 
 
     cleanup() {

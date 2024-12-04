@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Start Page -->
-    <div id="splash-screen">
+     <!-- Start Page -->
+     <div id="splash-screen">
         <div class="splash-content">
             <h1 class="splash-title">
                 <span class="sound">Sound</span><span class="scape">Scape</span>
@@ -20,15 +20,57 @@
             </div>
         </div>
     </div>
-    <!-- Mode Selection Page -->
-    <div id="mode-selection-page">
-        <h1>SoundScape</h1>
-        <div class="mode-container">
-            <button class="mode-btn" data-mode="hand">Hand Mode</button>
-            <button class="mode-btn" data-mode="face">Face Mode</button>
-            <button class="mode-btn" data-mode="fullbody">Full Body Mode</button>
+    <!-- Welcome/Instructions Page -->
+    <div id="instruction-page">
+        <div class="left-column">
+            <h1>Welcome to SoundScape!</h1>
+            <div class="welcome-text">
+                <p>Step into your own musical carnival where you can:</p>
+                <ul>
+                    <li>Create your own music with hand gestures</li>
+                    <li>Catch musical words with face movements</li>
+                    <li>Dance to create unique sounds with body mode</li>
+                </ul>
+            </div>
         </div>
-        <button id="back-to-instructions" class="back-btn">← Back to Instructions</button>
+        <div class="right-column">
+            <div class="mode-container">
+                <button class="mode-btn" data-mode="hand">Hand Mode</button>
+                <button class="mode-btn" data-mode="face">Face Mode</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Face Mode Instructions Modal -->
+    <div id="face-instructions-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>How to Play Word Catching Game</h2>
+            <div class="instructions">
+                <ul>
+                    <li>Use your head movements to control the green dot</li>
+                    <li>Catch falling musical words with the green dot</li>
+                    <li>Each word caught gives you 10 points</li>
+                    <li>You have 60 seconds to catch as many words as possible</li>
+                </ul>
+            </div>
+            <button id="start-face-game" class="mode-btn">Start Game</button>
+        </div>
+    </div>
+
+    <!-- Hand Mode Instructions Modal -->
+    <div id="hand-instructions-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>How to Play Hand Mode</h2>
+            <div class="instructions">
+                <ul>
+                    <li>Create music using simple hand gestures</li>
+                    <li>Move your hand within the camera frame</li>
+                    <li>Different gestures trigger different sounds</li>
+                    <li>Keep your hand visible to the camera</li>
+                </ul>
+            </div>
+            <button id="start-hand-game" class="mode-btn">Start Game</button>
+        </div>
     </div>
 
     <!-- Canvas Page -->
@@ -36,40 +78,14 @@
         <button id="back-btn">← Back</button>
         <div id="canvas-container"></div>
     </div>
-    <div id="instruction-page">
-        <h1>Welcome to SoundScape!</h1>
-        
-        <div class="instruction-content">
-            <div class="instruction-section">
-                <h2>Hand Gestures</h2>
-                <ul>
-                    <li>👋 Open Palm - Base note</li>
-                    <li>✊ Fist - Lower pitch</li>
-                    <li>✌️ Peace - Higher pitch</li>
-                    <li>👆 Point - Sharp note</li>
-                    <li>👍 Thumbs Up - Ascending</li>
-                </ul>
-            </div>
-    
-            <div class="instruction-section">
-                <h2>Voice Commands</h2>
-                <ul>
-                    <li>"Start sound"</li>
-                    <li>"Stop sound"</li>
-                    <li>"Volume up/down"</li>
-                    <li>"Go back"</li>
-                </ul>
-            </div>
-        </div>
-    
-        <button id="start-btn">Start Using SoundScape</button>
-    </div>
 
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.26/Tone.min.js"></script>
     <script src="lib/p5.speech.js"></script>
     
+    <script src="modes/face/face.js"></script>
     <script src="particleSystem.js"></script>
     <script src="voiceCommands.js"></script>
     <script src="modes/hand/handTracking.js"></script>
@@ -77,6 +93,5 @@
     <script src="modes/hand/soundSynth.js"></script>
     <script src="modes/hand/hand.js"></script>
     <script src="main.js"></script>
-
 </body>
 </html>

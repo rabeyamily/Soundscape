@@ -1,38 +1,37 @@
 class GestureRecognition {
     constructor() {
-        this.currentGesture = null;
+        this.currentGestures = [null, null];
         this.gestureHistory = [];
-        this.lastGestureTime = 0;
+        this.lastGestureTime = [0, 0];
         this.gestureThreshold = 500; // ms between gesture updates
     }
 
-    detectGesture(landmarks) {
+  
+
+    detectGesture(landmarks, handIndex) {
         if (!landmarks || landmarks.length === 0) return null;
-
         const currentTime = Date.now();
-        if (currentTime - this.lastGestureTime < this.gestureThreshold) {
-            return this.currentGesture;
-        }
-
-        // Calculate finger states
-        const fingerStates = this.getFingerStates(landmarks);
         
-        // Detect gestures
+        if (currentTime - this.lastGestureTime[handIndex] < this.gestureThreshold) {
+            return this.currentGestures[handIndex];
+        }
+    
+        const fingerStates = this.getFingerStates(landmarks);
         let gesture = this.identifyGesture(fingerStates);
         
-        // Update gesture history
-        if (gesture !== this.currentGesture) {
+        if (gesture !== this.currentGestures[handIndex]) {
             this.gestureHistory.push({
                 gesture: gesture,
+                handIndex: handIndex,
                 timestamp: currentTime
             });
-            this.currentGesture = gesture;
-            this.lastGestureTime = currentTime;
+            this.currentGestures[handIndex] = gesture;
+            this.lastGestureTime[handIndex] = currentTime;
         }
-
+        
         return gesture;
     }
-
+    
     getFingerStates(landmarks) {
         const fingerTips = [8, 12, 16, 20]; // Index, Middle, Ring, Pinky
         const fingerBases = [6, 10, 14, 18];

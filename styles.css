@@ -4,6 +4,7 @@ body {
     overflow: hidden;
     font-family: Arial, sans-serif;
 }
+
 /* Start Page */
 #splash-screen {
     position: fixed;
@@ -72,29 +73,120 @@ body {
         transform: scale(1);
     }
 }
-/* Mode Selection Page */
-#mode-selection-page {
+
+#instruction-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    padding: 2rem;
+    text-align: center;
+}
+
+.left-column {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: white;
+    max-width: 800px;
 }
 
-h1 {
-    font-size: 3em;
-    margin-bottom: 50px;
+.left-column h1 {
+    font-size: 4rem;
+    color: #4CAF50;
+    margin-bottom: 2rem;
+}
+
+.welcome-text {
+    font-size: 1.8rem;
+    color: #4CAF50;
 }
 
 .mode-container {
     display: flex;
-    gap: 30px;
+    flex-direction: column;
+    gap: 1rem;
+    width: 300px;
+    margin-bottom: 3rem;
 }
 
 .mode-btn {
-    padding: 20px 40px;
-    font-size: 1.2em;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 15px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#instruction-page {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    min-height: 100vh;
+    background-color: white;
+}
+
+.left-column {
+    padding: 2rem;
+    border-right: 1px solid #eee;
+}
+
+.right-column {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.welcome-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin: 2rem 0;
+}
+
+.welcome-text ul {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+.welcome-text li {
+    margin: 1rem 0;
+}
+
+.instruction-content {
+    margin-top: 2rem;
+}
+
+.instruction-section {
+    margin: 1.5rem 0;
+}
+
+.instruction-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.instruction-section li {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+}
+
+.mode-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.mode-btn {
+    width: 80%;
+    padding: 1.2rem;
+    font-size: 1.2rem;
     border: none;
     border-radius: 12px;
     background-color: #4CAF50;
@@ -108,19 +200,44 @@ h1 {
     transform: translateY(-5px);
 }
 
-/* Canvas Page */
-#canvas-page {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #f0f0f0;
-}
-
-#canvas-container {
     width: 100%;
     height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    text-align: center;
+}
+
+.difficulty-btn {
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.difficulty-btn:hover {
+    background-color: #45a049;
+}
+
+.hidden {
+    display: none !important;
 }
 
 #back-btn {
@@ -140,109 +257,3 @@ h1 {
 #back-btn:hover {
     background-color: #555;
 }
-
-.hidden {
-    display: none !important;
-}
-
-.loading-indicator {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    z-index: 1000;
-}
-
-.camera-permission {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    z-index: 1000;
-}
-
-.camera-permission button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background: #4CAF50;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-}
-
-.camera-permission button:hover {
-    background: #45a049;
-}
-
-#instruction-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: white;
-    padding: 20px;
-}
-
-.instruction-content {
-    max-width: 800px;
-    margin: 40px 0;
-}
-
-.instruction-section {
-    margin: 30px 0;
-    text-align: center;
-}
-
-.instruction-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.instruction-section li {
-    margin: 15px 0;
-    font-size: 1.2em;
-}
-
-#start-btn {
-    padding: 20px 40px;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 12px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
-}
-
-#start-btn:hover {
-    background-color: #45a049;
-    transform: translateY(-5px);
-}
-
-/* back button from the mode selection page */
-#back-to-instructions {
-    margin-top: 30px;
-    padding: 10px 20px;
-    font-size: 1.1em;
-    border: none;
-    border-radius: 8px;
-    background-color: #333;
-    color: white;
-    cursor: pointer;
-}
-
-#back-to-instructions:hover {
-    background-color: #555;
-}
-/* end */

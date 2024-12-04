@@ -20,14 +20,25 @@ class SoundSynth {
         //console.log('Audio engine initialized');
     }
 
-    playGestureSound(gesture) {
+    playGestureSound(gesture, handIndex) {
         if (!gesture || gesture === 'unknown') return;
-        
         const note = this.notes[gesture];
         if (note) {
-            this.synth.triggerAttackRelease(note, "8n");
+            // Adjust pitch based on which hand
+            const adjustedNote = Tone.Frequency(note)
+                .transpose(handIndex * 12)  // Offset second hand by an octave
+                .toNote();
+            this.synth.triggerAttackRelease(adjustedNote, "8n");
         }
     }
+    // playGestureSound(gesture) {
+    //     if (!gesture || gesture === 'unknown') return;
+        
+    //     const note = this.notes[gesture];
+    //     if (note) {
+    //         this.synth.triggerAttackRelease(note, "8n");
+    //     }
+    // }
 
     cleanup() {
         this.synth.dispose();

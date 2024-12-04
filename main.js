@@ -11,7 +11,26 @@ function initializeModeSelection() {
             try {
                 await Tone.start();
                 const mode = this.getAttribute('data-mode');
-                switchToCanvasView(mode);
+                
+                if (mode === 'face') {
+                    document.getElementById('face-instructions-modal').classList.remove('hidden');
+                    
+                    document.getElementById('start-face-game').addEventListener('click', () => {
+                        document.getElementById('face-instructions-modal').classList.add('hidden');
+                        modeInstance = new FaceMode();
+                        switchToCanvasView('face');
+                    });
+                } else if (mode === 'hand') {
+                    document.getElementById('hand-instructions-modal').classList.remove('hidden');
+                    
+                    document.getElementById('start-hand-game').addEventListener('click', () => {
+                        document.getElementById('hand-instructions-modal').classList.add('hidden');
+                        modeInstance = new HandMode();
+                        switchToCanvasView('hand');
+                    });
+                } else {
+                    switchToCanvasView(mode);
+                }
             } catch (error) {
                 console.error('Error starting audio context:', error);
             }
@@ -31,17 +50,14 @@ function switchToCanvasView(mode) {
             modeInstance = new HandMode();
             break;
         case 'face':
-            modeInstance = new FaceMode();
-            break;
-        case 'fullbody':
-            modeInstance = new FullBodyMode();
+            if (!modeInstance) {
+                modeInstance = new FaceMode();
+            }
             break;
     }
     
-    document.getElementById('mode-selection-page').classList.add('hidden');
+    document.getElementById('instruction-page').classList.add('hidden');
     document.getElementById('canvas-page').classList.remove('hidden');
-    
-    
     createP5Canvas();
 }
 
@@ -61,16 +77,12 @@ function createP5Canvas() {
                 }
             } catch (error) {
                 console.error('Setup error:', error);
-                p.background(220);
-                p.fill(255, 0, 0);
-                p.textSize(24);
-                p.textAlign(p.CENTER, p.CENTER);
-                p.text('Please allow camera access and refresh the page', p.width/2, p.height/2);
+                showCameraPermissionPrompt();
             }
         };
 
         p.draw = () => {
-            if (modeInstance && !modeInstance.initializationError) {
+            if (modeInstance && modeInstance.initialized && !modeInstance.initializationError) {
                 modeInstance.draw(p);
             }
         };
@@ -79,6 +91,16 @@ function createP5Canvas() {
             p.resizeCanvas(p.windowWidth, p.windowHeight);
         };
     });
+}
+
+function showCameraPermissionPrompt() {
+    const permissionDiv = document.createElement('div');
+    permissionDiv.className = 'camera-permission';
+    permissionDiv.innerHTML = `
+        <p>Please allow camera access to use this mode</p>
+        <button onclick="location.reload()">Retry</button>
+    `;
+    document.body.appendChild(permissionDiv);
 }
 
 function switchToModeSelection() {
@@ -93,11 +115,12 @@ function switchToModeSelection() {
     }
     
     document.getElementById('canvas-page').classList.add('hidden');
-    document.getElementById('mode-selection-page').classList.remove('hidden');
+    document.getElementById('face-instructions-modal').classList.add('hidden');
+    document.getElementById('hand-instructions-modal').classList.add('hidden');
+    document.getElementById('instruction-page').classList.remove('hidden');
     currentMode = null;
 }
 
-// Single DOMContentLoaded event listener
 document.addEventListener('DOMContentLoaded', () => {
     // Show splash screen for 3 seconds
     setTimeout(() => {
@@ -109,19 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('instruction-page').style.display = 'flex';
         }, 500);
     }, 3000);
-
     initializeModeSelection();
     
-    // Add start button handler
-    document.getElementById('start-btn').addEventListener('click', () => {
-        document.getElementById('instruction-page').style.display = 'none';
-        document.getElementById('mode-selection-page').style.display = 'flex';
-    });
-
-    // Initially hide mode selection page
-    document.getElementById('mode-selection-page').style.display = 'none';
-    
-    // Global audio context handler
     document.addEventListener('click', async () => {
         if (Tone.context.state !== 'running') {
             try {
@@ -130,10 +142,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error starting audio context:', error);
             }
         }
-    });
-    // Add back to instructions button handler
-    document.getElementById('back-to-instructions').addEventListener('click', () => {
-        document.getElementById('mode-selection-page').style.display = 'none';
-        document.getElementById('instruction-page').style.display = 'flex';
     });
 });
