@@ -1,0 +1,248 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+/* Start Page */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #120c0c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.splash-content {
+    text-align: center;
+}
+
+.splash-title {
+    margin-bottom: 30px;
+}
+
+.sound {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 2em;
+    color: transparent;
+    -webkit-text-stroke: 2px #205422;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.scape {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 2em;
+    font-style: italic;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.loading-dots span {
+    width: 12px;
+    height: 12px;
+    background-color: #205422;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { 
+        transform: scale(0);
+    }
+    40% { 
+        transform: scale(1);
+    }
+}
+/* Mode Selection Page */
+#mode-selection-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: white;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 50px;
+}
+
+.mode-container {
+    display: flex;
+    gap: 30px;
+}
+
+.mode-btn {
+    padding: 20px 40px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 12px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.mode-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-5px);
+}
+
+/* Canvas Page */
+#canvas-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+#canvas-container {
+    width: 100%;
+    height: 100%;
+}
+
+#back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#back-btn:hover {
+    background-color: #555;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.camera-permission {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1000;
+}
+
+.camera-permission button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.camera-permission button:hover {
+    background: #45a049;
+}
+
+#instruction-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: white;
+    padding: 20px;
+}
+
+.instruction-content {
+    max-width: 800px;
+    margin: 40px 0;
+}
+
+.instruction-section {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.instruction-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.instruction-section li {
+    margin: 15px 0;
+    font-size: 1.2em;
+}
+
+#start-btn {
+    padding: 20px 40px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 12px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#start-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-5px);
+}
+
+/* back button from the mode selection page */
+#back-to-instructions {
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+
+#back-to-instructions:hover {
+    background-color: #555;
+}
+/* end */

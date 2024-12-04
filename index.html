@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundScape</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Start Page -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <h1 class="splash-title">
+                <span class="sound">Sound</span><span class="scape">Scape</span>
+            </h1>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- Mode Selection Page -->
+    <div id="mode-selection-page">
+        <h1>SoundScape</h1>
+        <div class="mode-container">
+            <button class="mode-btn" data-mode="hand">Hand Mode</button>
+            <button class="mode-btn" data-mode="face">Face Mode</button>
+            <button class="mode-btn" data-mode="fullbody">Full Body Mode</button>
+        </div>
+        <button id="back-to-instructions" class="back-btn">← Back to Instructions</button>
+    </div>
+
+    <!-- Canvas Page -->
+    <div id="canvas-page" class="hidden">
+        <button id="back-btn">← Back</button>
+        <div id="canvas-container"></div>
+    </div>
+    <div id="instruction-page">
+        <h1>Welcome to SoundScape!</h1>
+        
+        <div class="instruction-content">
+            <div class="instruction-section">
+                <h2>Hand Gestures</h2>
+                <ul>
+                    <li>👋 Open Palm - Base note</li>
+                    <li>✊ Fist - Lower pitch</li>
+                    <li>✌️ Peace - Higher pitch</li>
+                    <li>👆 Point - Sharp note</li>
+                    <li>👍 Thumbs Up - Ascending</li>
+                </ul>
+            </div>
+    
+            <div class="instruction-section">
+                <h2>Voice Commands</h2>
+                <ul>
+                    <li>"Start sound"</li>
+                    <li>"Stop sound"</li>
+                    <li>"Volume up/down"</li>
+                    <li>"Go back"</li>
+                </ul>
+            </div>
+        </div>
+    
+        <button id="start-btn">Start Using SoundScape</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.26/Tone.min.js"></script>
+    <script src="lib/p5.speech.js"></script>
+    
+    <script src="particleSystem.js"></script>
+    <script src="voiceCommands.js"></script>
+    <script src="modes/hand/handTracking.js"></script>
+    <script src="modes/hand/gestureRecognition.js"></script>
+    <script src="modes/hand/soundSynth.js"></script>
+    <script src="modes/hand/hand.js"></script>
+    <script src="main.js"></script>
+
+</body>
+</html>
