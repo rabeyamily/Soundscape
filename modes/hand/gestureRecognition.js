@@ -1,3 +1,4 @@
+//modes/hand/gestureRecognition.js
 class GestureRecognition {
     constructor() {
         this.currentGestures = [null, null];
@@ -31,7 +32,6 @@ class GestureRecognition {
         
         return gesture;
     }
-    
     getFingerStates(landmarks) {
         const fingerTips = [8, 12, 16, 20]; // Index, Middle, Ring, Pinky
         const fingerBases = [6, 10, 14, 18];

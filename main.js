@@ -1,10 +1,35 @@
 let currentMode = null;
 let p5Canvas = null;
 let modeInstance = null;
+let voiceCommands = null;
 
 function initializeModeSelection() {
     const modeButtons = document.querySelectorAll('.mode-btn');
     const backButton = document.getElementById('back-btn');
+    const voiceToggle = document.getElementById('voice-control-toggle');
+    
+    voiceCommands = new VoiceCommands();
+    
+    voiceToggle.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            voiceCommands.init();
+            voiceCommands.start((command) => {
+                if (command.includes('hand mode')) {
+                    document.querySelector('[data-mode="hand"]').click();
+                } else if (command.includes('face mode')) {
+                    document.querySelector('[data-mode="face"]').click();
+                } else if (command.includes('start game')) {
+                    const startButton = document.querySelector('#start-hand-game') || 
+                                     document.querySelector('#start-face-game');
+                    if (startButton) startButton.click();
+                } else if (command.includes('go back')) {
+                    backButton.click();
+                }
+            });
+        } else {
+            voiceCommands.cleanup();
+        }
+    });
     
     modeButtons.forEach(button => {
         button.addEventListener('click', async function() {
@@ -121,8 +146,71 @@ function switchToModeSelection() {
     currentMode = null;
 }
 
+// document.addEventListener('DOMContentLoaded', () => {
+//     setTimeout(() => {
+//         const splashScreen = document.getElementById('splash-screen');
+//         splashScreen.style.opacity = '0';
+//         splashScreen.style.transition = 'opacity 0.5s ease';
+//         setTimeout(() => {
+//             splashScreen.style.display = 'none';
+//             document.getElementById('instruction-page').style.display = 'flex';
+//         }, 500);
+//     }, 1000);
+    
+//     initializeModeSelection();
+    
+//     document.addEventListener('click', async () => {
+//         if (Tone.context.state !== 'running') {
+//             try {
+//                 await Tone.start();
+//             } catch (error) {
+//                 console.error('Error starting audio context:', error);
+//             }
+//         }
+//     });
+// });
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     const voiceCommands = new VoiceCommands();
+    
+//     setTimeout(() => {
+//         const splashScreen = document.getElementById('splash-screen');
+//         splashScreen.style.opacity = '0';
+//         splashScreen.style.transition = 'opacity 0.5s ease';
+//         setTimeout(() => {
+//             splashScreen.style.display = 'none';
+//             document.getElementById('instruction-page').style.display = 'flex';
+            
+//             voiceCommands.speak('Welcome to SoundScape! If you want to continue with voice commands, say enable voice control');
+            
+//             voiceCommands.init();
+//             voiceCommands.start((command) => {
+//                 if (command.includes('enable voice control')) {
+//                     document.getElementById('voice-control-toggle').checked = true;
+//                     voiceCommands.speak('Voice control enabled. You can now use voice commands to control the application');
+//                 }
+//             });
+//         }, 500);
+//     }, 1500);
+    
+//     // Add these lines back
+//     initializeModeSelection();
+    
+//     document.addEventListener('click', async () => {
+//         if (Tone.context.state !== 'running') {
+//             try {
+//                 await Tone.start();
+//             } catch (error) {
+//                 console.error('Error starting audio context:', error);
+//             }
+//         }
+//     });
+// });
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Show splash screen for 3 seconds
+    voiceCommands = new VoiceCommands(); // Initialize voice commands instance
+
+    // Show splash screen, then transition to the instruction page
     setTimeout(() => {
         const splashScreen = document.getElementById('splash-screen');
         splashScreen.style.opacity = '0';
@@ -130,17 +218,25 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             splashScreen.style.display = 'none';
             document.getElementById('instruction-page').style.display = 'flex';
+            
+            // Greet the user with a welcome message
+            voiceCommands.speak('Welcome to SoundScape!');
+            
+            // Prompt the user to enable voice commands
+            setTimeout(() => {
+                voiceCommands.speak('Say "enable voice control" to use voice commands');
+                
+                // Start listening for the command to enable voice control
+                voiceCommands.start((command) => {
+                    if (command.includes('enable voice control')) {
+                        document.getElementById('voice-control-toggle').checked = true;
+                        voiceCommands.speak('Voice control enabled. You can now use voice commands');
+                    }
+                });
+            }, 3000); // Wait 3 seconds after the welcome message
         }, 500);
-    }, 3000);
+    }, 1500);
+
+    // Initialize mode selection
     initializeModeSelection();
-    
-    document.addEventListener('click', async () => {
-        if (Tone.context.state !== 'running') {
-            try {
-                await Tone.start();
-            } catch (error) {
-                console.error('Error starting audio context:', error);
-            }
-        }
-    });
 });

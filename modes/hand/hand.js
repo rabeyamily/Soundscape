@@ -1,3 +1,4 @@
+//modes/hand/hand.js
 class HandMode {
     constructor() {
         this.initialized = false;

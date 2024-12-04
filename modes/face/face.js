@@ -1,3 +1,4 @@
+//modes/face/face.js
 class FaceMode {
     constructor() {
         this.initialized = false;

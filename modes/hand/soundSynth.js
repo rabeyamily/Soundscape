@@ -1,3 +1,4 @@
+//modes/hand/soundSynth.js
 class SoundSynth {
     constructor() {
         this.synth = new Tone.PolySynth().toDestination();
@@ -31,15 +32,6 @@ class SoundSynth {
             this.synth.triggerAttackRelease(adjustedNote, "8n");
         }
     }
-    // playGestureSound(gesture) {
-    //     if (!gesture || gesture === 'unknown') return;
-        
-    //     const note = this.notes[gesture];
-    //     if (note) {
-    //         this.synth.triggerAttackRelease(note, "8n");
-    //     }
-    // }
-
     cleanup() {
         this.synth.dispose();
     }

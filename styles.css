@@ -5,7 +5,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Start Page */
 #splash-screen {
     position: fixed;
     top: 0;
@@ -19,13 +18,8 @@ body {
     z-index: 9999;
 }
 
-.splash-content {
-    text-align: center;
-}
-
-.splash-title {
-    margin-bottom: 30px;
-}
+.splash-content {text-align: center;}
+.splash-title {margin-bottom: 30px;}
 
 .sound {
     font-family: 'Arial Black', sans-serif;
@@ -57,34 +51,24 @@ body {
     animation: bounce 1.4s infinite ease-in-out;
 }
 
-.loading-dots span:nth-child(1) {
-    animation-delay: -0.32s;
-}
-
-.loading-dots span:nth-child(2) {
-    animation-delay: -0.16s;
-}
+.loading-dots span:nth-child(1) {animation-delay: -0.32s;}
+.loading-dots span:nth-child(2) {animation-delay: -0.16s;}
 
 @keyframes bounce {
-    0%, 80%, 100% { 
-        transform: scale(0);
-    }
-    40% { 
-        transform: scale(1);
-    }
+    0%, 80%, 100% {transform: scale(0);}
+    40% {transform: scale(1);}
 }
 
 #instruction-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 60% 40%;
     min-height: 100vh;
-    padding: 2rem;
-    text-align: center;
+    background-color: white;
 }
 
 .left-column {
+    padding: 2rem;
+    border-right: 1px solid #eee;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -100,41 +84,18 @@ body {
 }
 
 .welcome-text {
-    font-size: 1.8rem;
-    color: #4CAF50;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin: 2rem 0;
+    color: #0b0b0b;
 }
 
-.mode-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 300px;
-    margin-bottom: 3rem;
+.welcome-text ul {
+    list-style: none;
+    padding-left: 1rem;
 }
 
-.mode-btn {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 15px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-#instruction-page {
-    display: grid;
-    grid-template-columns: 60% 40%;
-    min-height: 100vh;
-    background-color: white;
-}
-
-.left-column {
-    padding: 2rem;
-    border-right: 1px solid #eee;
-}
+.welcome-text li {margin: 1rem 0;}
 
 .right-column {
     padding: 2rem;
@@ -143,44 +104,13 @@ body {
     justify-content: center;
 }
 
-.welcome-text {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    margin: 2rem 0;
-}
-
-.welcome-text ul {
-    list-style: none;
-    padding-left: 1rem;
-}
-
-.welcome-text li {
-    margin: 1rem 0;
-}
-
-.instruction-content {
-    margin-top: 2rem;
-}
-
-.instruction-section {
-    margin: 1.5rem 0;
-}
-
-.instruction-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.instruction-section li {
-    margin: 1rem 0;
-    font-size: 1.1rem;
-}
-
 .mode-container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     align-items: center;
+    width: 300px;
+    margin-bottom: 3rem;
 }
 
 .mode-btn {
@@ -206,7 +136,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0,0,0,0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -220,25 +150,7 @@ body {
     text-align: center;
 }
 
-.difficulty-btn {
-    width: 100%;
-    padding: 1rem;
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 8px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-.difficulty-btn:hover {
-    background-color: #45a049;
-}
-
-.hidden {
-    display: none !important;
-}
+.hidden {display: none !important;}
 
 #back-btn {
     position: fixed;
@@ -254,6 +166,52 @@ body {
     z-index: 1000;
 }
 
-#back-btn:hover {
-    background-color: #555;
+#back-btn:hover {background-color: #555;}
+
+.voice-control-toggle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    justify-content: center;
+    gap: 1rem;
 }
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {background-color: #4CAF50;}
+input:checked + .slider:before {transform: translateX(26px);}

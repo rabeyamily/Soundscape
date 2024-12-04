@@ -25,15 +25,33 @@
         <div class="left-column">
             <h1>Welcome to SoundScape!</h1>
             <div class="welcome-text">
-                <p>Step into your own musical carnival where you can:</p>
+                <p>Step into your carnival where you can:</p>
                 <ul>
                     <li>Create your own music with hand gestures</li>
-                    <li>Catch musical words with face movements</li>
-                    <li>Dance to create unique sounds with body mode</li>
+                    <li>Catch words with face movements</li>
+                    <li>Control everything with voice commands</li>
+                </ul>
+            </div>
+            <div class="voice-commands">
+                <h3>Available Voice Commands:</h3>
+                <ul>
+                    <li>"Hand mode" - Select hand mode</li>
+                    <li>"Face mode" - Select face mode</li>
+                    <li>"Start game" - Start the selected mode</li>
+                    <li>"Go back" - Return to main menu</li>
+                    <li>"Sound on/off" - Toggle sound</li>
+                    <li>"Volume up/down" - Adjust volume</li>
                 </ul>
             </div>
         </div>
         <div class="right-column">
+            <div class="voice-control-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="voice-control-toggle">
+                    <span class="slider round"></span>
+                </label>
+                <span class="toggle-label">Enable Voice Control</span>
+            </div>
             <div class="mode-container">
                 <button class="mode-btn" data-mode="hand">Hand Mode</button>
                 <button class="mode-btn" data-mode="face">Face Mode</button>
@@ -52,6 +70,14 @@
                     <li>Each word caught gives you 10 points</li>
                     <li>You have 60 seconds to catch as many words as possible</li>
                 </ul>
+                <div class="voice-hint">
+                    <p>Voice commands available during game:</p>
+                    <ul>
+                        <li>"Start game" - Begin playing</li>
+                        <li>"Go back" - Return to menu</li>
+                        <li>"Sound on/off" - Toggle sound</li>
+                    </ul>
+                </div>
             </div>
             <button id="start-face-game" class="mode-btn">Start Game</button>
         </div>
@@ -65,9 +91,18 @@
                 <ul>
                     <li>Create music using simple hand gestures</li>
                     <li>Move your hand within the camera frame</li>
-                    <li>Different gestures trigger different sounds</li>
+                    <li>Different gestures (i.e like, dislike, victory, point, open palm, fist etc.) trigger different sounds</li>
                     <li>Keep your hand visible to the camera</li>
                 </ul>
+                <div class="voice-hint">
+                    <p>Voice commands available during game:</p>
+                    <ul>
+                        <li>"Start game" - Begin playing</li>
+                        <li>"Go back" - Return to menu</li>
+                        <li>"Sound on/off" - Toggle sound</li>
+                        <li>"Volume up/down" - Adjust volume</li>
+                    </ul>
+                </div>
             </div>
             <button id="start-hand-game" class="mode-btn">Start Game</button>
         </div>
