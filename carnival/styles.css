@@ -1,0 +1,159 @@
+:root {
+    --olive-green: #8B9B7E;
+    --light-gray: #F5F5F5;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: serif;
+    background-color: var(--light-gray);
+}
+
+/* Mode Selection Page */
+header {
+    background-color: var(--olive-green);
+    padding: 1rem;
+    color: white;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo img {
+    height: 50px;
+}
+
+main {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 2;
+}
+
+.mode-options {
+    margin-top: 3rem;
+}
+
+.mode-btn {
+    background-color: white;
+    border: 2px solid var(--olive-green);
+    border-radius: 20px;
+    padding: 0.5rem 2rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin: 0 0.5rem;
+}
+
+.mode-btn:hover {
+    background-color: var(--olive-green);
+    color: white;
+}
+
+/* Face Mode Styles */
+.header {
+    background-color: var(--olive-green);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.home-btn {
+    position: absolute;
+    left: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.mode-label {
+    background-color: white;
+    padding: 5px 20px;
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+.bonus-section {
+    padding: 20px;
+}
+
+.bonus-section input {
+    padding: 5px;
+    border: 1px solid var(--olive-green);
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.score-section {
+    width: 150px;
+    padding: 20px;
+}
+
+.score-box, .time-box {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#game-canvas {
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 20px;
+    flex-grow: 1;
+}
+
+.frame-section {
+    width: 120px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.frame {
+    border: 2px solid var(--olive-green);
+    height: 120px;
+    position: relative;
+}
+
+.frame::before, .frame::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.frame::before {
+    top: -10px;
+    left: -10px;
+    border-top: 2px solid var(--olive-green);
+    border-left: 2px solid var(--olive-green);
+}
+
+.frame::after {
+    bottom: -10px;
+    right: -10px;
+    border-bottom: 2px solid var(--olive-green);
+    border-right: 2px solid var(--olive-green);
+}
+
+.game-content {
+    display: flex;
+    height: calc(100vh - 120px);
+}
